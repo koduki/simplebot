@@ -25,6 +25,9 @@ function createRMA(){
   return rma;
 }
 
+var toString = function(data){
+  return '[' + data.map(function(xs){ return '[' + xs.join(',') +']'}).join(',') + ']'
+};
 
 var ma = createRMA();
 var server = http.createServer(function(req, res){
@@ -36,12 +39,11 @@ var server = http.createServer(function(req, res){
     var tokens = ma.tokenize(text);
     console.log(tokens);
 
-    res.writeHead(200, {'Content-Type':'text/plain'});
-    res.end(tokens + '\n');
+    res.writeHead(200, {'Content-Type':'application/json'});
+    res.end(toString(tokens) + '\n');
   } else {
     res.writeHead(404, {'Content-Type':'text/plain'});
     res.end("not found." + '\n');
- 
   }
 }).listen(port, host);
 
