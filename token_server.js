@@ -25,8 +25,9 @@ function createRMA(){
   return rma;
 }
 
-var toString = function(data){
-  return '[' + data.map(function(xs){ return '[' + xs.join(',') +']'}).join(',') + ']'
+var json = function(data){
+//  return '[' + data.map(function(xs){ return "['" + xs.join("','") +"']"}).join(',') + ']'
+  return JSON.stringify(data);
 };
 
 var ma = createRMA();
@@ -40,7 +41,7 @@ var server = http.createServer(function(req, res){
     console.log(tokens);
 
     res.writeHead(200, {'Content-Type':'application/json'});
-    res.end(toString(tokens) + '\n');
+    res.end(json(tokens) + '\n');
   } else {
     res.writeHead(404, {'Content-Type':'text/plain'});
     res.end("not found." + '\n');
