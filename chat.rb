@@ -15,3 +15,9 @@ def parse text
 
   JSON.load open(url).read
 end
+
+def pairs tokens
+  xs = []
+  tokens.each_cons(3) {|a, b, c| xs << [a, [b, c]] }
+  xs
+end
